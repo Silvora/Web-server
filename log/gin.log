@@ -1,0 +1,112 @@
+[GIN-debug] [WARNING] Creating an Engine instance with the Logger and Recovery middleware already attached.
+
+[GIN-debug] [WARNING] Running in "debug" mode. Switch to "release" mode in production.
+ - using env:	export GIN_MODE=release
+ - using code:	gin.SetMode(gin.ReleaseMode)
+
+[GIN-debug] GET    /api/login                --> indexServer/service.Status (5 handlers)
+[GIN-debug] POST   /api/login                --> indexServer/service.Login (5 handlers)
+[GIN-debug] POST   /api/sendEmail            --> indexServer/service.UserToEmail (5 handlers)
+[GIN-debug] GET    /api/tag                  --> indexServer/service.GetTag (5 handlers)
+[GIN-debug] POST   /api/tag                  --> indexServer/service.AddTag (5 handlers)
+[GIN-debug] DELETE /api/tag                  --> indexServer/service.DelTag (5 handlers)
+[GIN-debug] GET    /api/class                --> indexServer/service.GetClass (5 handlers)
+[GIN-debug] POST   /api/class                --> indexServer/service.AddClass (5 handlers)
+[GIN-debug] DELETE /api/class                --> indexServer/service.DelClass (5 handlers)
+[GIN-debug] GET    /api/markdown             --> indexServer/service.GetMarkdown (5 handlers)
+[GIN-debug] POST   /api/markdown             --> indexServer/service.AddMarkdown (5 handlers)
+[GIN-debug] PUT    /api/markdown             --> indexServer/service.PutMarkdown (5 handlers)
+[GIN-debug] DELETE /api/markdown             --> indexServer/service.DelMarkdown (5 handlers)
+[GIN-debug] [WARNING] You trusted all proxies, this is NOT safe. We recommend you to set a value.
+Please check https://pkg.go.dev/github.com/gin-gonic/gin#readme-don-t-trust-all-proxies for details.
+[GIN-debug] Listening and serving HTTP on :7412
+[GIN] 2023/02/02 - 15:44:26 | 200 |   28.775057ms |       127.0.0.1 | GET      "/api/tag"
+[GIN] 2023/02/02 - 15:44:26 | 200 |    1.031742ms |       127.0.0.1 | GET      "/api/class"
+[GIN] 2023/02/02 - 15:44:26 | 200 |     954.255µs |       127.0.0.1 | GET      "/api/markdown"
+[GIN] 2023/02/02 - 15:47:37 | 200 |     920.316µs |       127.0.0.1 | GET      "/api/tag"
+[GIN] 2023/02/02 - 15:47:37 | 200 |     3.10891ms |       127.0.0.1 | GET      "/api/class"
+[GIN] 2023/02/02 - 15:47:37 | 200 |     845.642µs |       127.0.0.1 | GET      "/api/markdown"
+[GIN] 2023/02/02 - 15:47:37 | 200 |     932.251µs |       127.0.0.1 | GET      "/api/tag"
+[GIN] 2023/02/02 - 15:47:37 | 200 |     841.986µs |       127.0.0.1 | GET      "/api/class"
+[GIN] 2023/02/02 - 15:47:37 | 200 |    1.113513ms |       127.0.0.1 | GET      "/api/markdown"
+[GIN] 2023/02/02 - 15:53:54 | 200 |     984.854µs |       127.0.0.1 | GET      "/api/tag"
+[GIN] 2023/02/02 - 15:53:54 | 200 |    1.499738ms |       127.0.0.1 | GET      "/api/class"
+[GIN] 2023/02/02 - 15:53:54 | 200 |    1.127151ms |       127.0.0.1 | GET      "/api/markdown"
+[GIN] 2023/02/02 - 15:53:54 | 200 |     945.336µs |       127.0.0.1 | GET      "/api/tag"
+[GIN] 2023/02/02 - 15:53:54 | 200 |     920.918µs |       127.0.0.1 | GET      "/api/class"
+[GIN] 2023/02/02 - 15:53:54 | 200 |     988.885µs |       127.0.0.1 | GET      "/api/markdown"
+[GIN] 2023/02/02 - 15:55:07 | 200 |     929.316µs |       127.0.0.1 | GET      "/api/tag"
+[GIN] 2023/02/02 - 15:55:07 | 200 |     909.418µs |       127.0.0.1 | GET      "/api/class"
+[GIN] 2023/02/02 - 15:55:07 | 200 |    1.103479ms |       127.0.0.1 | GET      "/api/markdown"
+[GIN] 2023/02/02 - 15:55:56 | 200 |    1.144926ms |       127.0.0.1 | GET      "/api/tag"
+[GIN] 2023/02/02 - 15:55:56 | 200 |     827.918µs |       127.0.0.1 | GET      "/api/class"
+[GIN] 2023/02/02 - 15:55:56 | 200 |     939.837µs |       127.0.0.1 | GET      "/api/markdown"
+[GIN] 2023/02/02 - 15:56:26 | 200 |  917.102566ms |       127.0.0.1 | GET      "/api/tag"
+[GIN] 2023/02/02 - 15:56:26 | 200 |    1.579183ms |       127.0.0.1 | GET      "/api/class"
+[GIN] 2023/02/02 - 15:56:26 | 200 |    1.722527ms |       127.0.0.1 | GET      "/api/markdown"
+[GIN] 2023/02/02 - 15:56:52 | 200 |    1.117849ms |       127.0.0.1 | GET      "/api/tag"
+[GIN] 2023/02/02 - 15:56:52 | 200 |    1.068709ms |       127.0.0.1 | GET      "/api/class"
+[GIN] 2023/02/02 - 15:56:52 | 200 |     942.958µs |       127.0.0.1 | GET      "/api/markdown"
+[GIN] 2023/02/02 - 15:58:46 | 200 |      979.82µs |       127.0.0.1 | GET      "/api/tag"
+[GIN] 2023/02/02 - 15:58:46 | 200 |    1.067122ms |       127.0.0.1 | GET      "/api/class"
+[GIN] 2023/02/02 - 15:58:46 | 200 |    1.043247ms |       127.0.0.1 | GET      "/api/markdown"
+[GIN] 2023/02/02 - 16:02:12 | 200 |    1.046163ms |       127.0.0.1 | GET      "/api/tag"
+[GIN] 2023/02/02 - 16:02:12 | 200 |     989.872µs |       127.0.0.1 | GET      "/api/class"
+[GIN] 2023/02/02 - 16:02:12 | 200 |     866.708µs |       127.0.0.1 | GET      "/api/markdown"
+[GIN] 2023/02/02 - 16:32:04 | 200 |  539.351961ms |       127.0.0.1 | GET      "/api/tag"
+[GIN] 2023/02/02 - 16:32:04 | 200 |    1.078715ms |       127.0.0.1 | GET      "/api/class"
+[GIN] 2023/02/02 - 16:32:04 | 200 |     856.631µs |       127.0.0.1 | GET      "/api/markdown"
+[GIN] 2023/02/02 - 16:32:13 | 200 |     767.186µs |       127.0.0.1 | GET      "/api/tag"
+[GIN] 2023/02/02 - 16:32:13 | 200 |     801.737µs |       127.0.0.1 | GET      "/api/class"
+[GIN] 2023/02/02 - 16:32:13 | 200 |      880.65µs |       127.0.0.1 | GET      "/api/markdown"
+[GIN] 2023/02/02 - 16:32:46 | 200 |     984.483µs |       127.0.0.1 | GET      "/api/tag"
+[GIN] 2023/02/02 - 16:32:46 | 200 |       726.5µs |       127.0.0.1 | GET      "/api/class"
+[GIN] 2023/02/02 - 16:32:46 | 200 |     771.667µs |       127.0.0.1 | GET      "/api/markdown"
+[GIN] 2023/02/02 - 16:33:37 | 200 |     893.627µs |       127.0.0.1 | GET      "/api/tag"
+[GIN] 2023/02/02 - 16:33:37 | 200 |    1.035172ms |       127.0.0.1 | GET      "/api/class"
+[GIN] 2023/02/02 - 16:33:37 | 200 |     895.931µs |       127.0.0.1 | GET      "/api/markdown"
+[GIN] 2023/02/02 - 16:35:06 | 200 |     872.521µs |       127.0.0.1 | GET      "/api/tag"
+[GIN] 2023/02/02 - 16:35:06 | 200 |      940.95µs |       127.0.0.1 | GET      "/api/class"
+[GIN] 2023/02/02 - 16:35:06 | 200 |     841.816µs |       127.0.0.1 | GET      "/api/markdown"
+[GIN] 2023/02/02 - 16:38:09 | 200 |      956.41µs |       127.0.0.1 | GET      "/api/tag"
+[GIN] 2023/02/02 - 16:38:09 | 200 |     799.405µs |       127.0.0.1 | GET      "/api/class"
+[GIN] 2023/02/02 - 16:38:09 | 200 |     782.853µs |       127.0.0.1 | GET      "/api/markdown"
+[GIN] 2023/02/02 - 16:38:42 | 200 |     855.258µs |       127.0.0.1 | GET      "/api/tag"
+[GIN] 2023/02/02 - 16:38:42 | 200 |     885.262µs |       127.0.0.1 | GET      "/api/class"
+[GIN] 2023/02/02 - 16:38:42 | 200 |     788.139µs |       127.0.0.1 | GET      "/api/markdown"
+[GIN] 2023/02/02 - 16:47:26 | 200 |     761.701µs |       127.0.0.1 | GET      "/api/tag"
+[GIN] 2023/02/02 - 16:47:26 | 200 |     826.819µs |       127.0.0.1 | GET      "/api/class"
+[GIN] 2023/02/02 - 16:47:26 | 200 |     784.483µs |       127.0.0.1 | GET      "/api/markdown"
+[GIN] 2023/02/02 - 16:50:55 | 200 |     913.309µs |       127.0.0.1 | GET      "/api/tag"
+[GIN] 2023/02/02 - 16:50:55 | 200 |     989.264µs |       127.0.0.1 | GET      "/api/class"
+[GIN] 2023/02/02 - 16:50:55 | 200 |    1.050698ms |       127.0.0.1 | GET      "/api/markdown"
+[GIN] 2023/02/02 - 16:53:38 | 200 |    1.077024ms |       127.0.0.1 | GET      "/api/tag"
+[GIN] 2023/02/02 - 16:53:38 | 200 |     856.774µs |       127.0.0.1 | GET      "/api/class"
+[GIN] 2023/02/02 - 16:53:38 | 200 |     979.544µs |       127.0.0.1 | GET      "/api/markdown"
+[GIN] 2023/02/02 - 16:53:40 | 200 |    1.031888ms |       127.0.0.1 | GET      "/api/tag"
+[GIN] 2023/02/02 - 16:53:40 | 200 |    1.181678ms |       127.0.0.1 | GET      "/api/class"
+[GIN] 2023/02/02 - 16:53:40 | 200 |    1.323314ms |       127.0.0.1 | GET      "/api/markdown"
+[GIN] 2023/02/02 - 16:54:12 | 200 |    1.101439ms |       127.0.0.1 | GET      "/api/tag"
+[GIN] 2023/02/02 - 16:54:12 | 200 |    1.979299ms |       127.0.0.1 | GET      "/api/class"
+[GIN] 2023/02/02 - 16:54:12 | 200 |      1.5707ms |       127.0.0.1 | GET      "/api/markdown"
+[GIN] 2023/02/02 - 16:58:31 | 200 |  950.098184ms |       127.0.0.1 | GET      "/api/tag"
+[GIN] 2023/02/02 - 16:58:31 | 200 |    2.117418ms |       127.0.0.1 | GET      "/api/class"
+[GIN] 2023/02/02 - 16:58:31 | 200 |    1.822001ms |       127.0.0.1 | GET      "/api/markdown"
+[GIN] 2023/02/02 - 16:58:57 | 200 |    2.848849ms |       127.0.0.1 | GET      "/api/tag"
+[GIN] 2023/02/02 - 16:58:57 | 200 |     976.679µs |       127.0.0.1 | GET      "/api/class"
+[GIN] 2023/02/02 - 16:58:57 | 200 |     924.831µs |       127.0.0.1 | GET      "/api/markdown"
+[GIN] 2023/02/02 - 17:00:09 | 200 |     830.601µs |       127.0.0.1 | GET      "/api/tag"
+[GIN] 2023/02/02 - 17:00:09 | 200 |     758.088µs |       127.0.0.1 | GET      "/api/class"
+[GIN] 2023/02/02 - 17:00:09 | 200 |     942.829µs |       127.0.0.1 | GET      "/api/markdown"
+[GIN] 2023/02/02 - 17:04:52 | 200 |   15.511955ms |       127.0.0.1 | GET      "/api/tag"
+[GIN] 2023/02/02 - 17:04:52 | 200 |    2.134256ms |       127.0.0.1 | GET      "/api/class"
+[GIN] 2023/02/02 - 17:04:52 | 200 |     2.15259ms |       127.0.0.1 | GET      "/api/markdown"
+[GIN] 2023/02/02 - 17:05:03 | 200 |    1.788607ms |       127.0.0.1 | GET      "/api/tag"
+[GIN] 2023/02/02 - 17:05:03 | 200 |    1.238747ms |       127.0.0.1 | GET      "/api/class"
+[GIN] 2023/02/02 - 17:05:03 | 200 |    1.413046ms |       127.0.0.1 | GET      "/api/markdown"
+[GIN] 2023/02/02 - 17:05:33 | 200 |    1.157253ms |       127.0.0.1 | GET      "/api/tag"
+[GIN] 2023/02/02 - 17:05:33 | 200 |    1.258283ms |       127.0.0.1 | GET      "/api/class"
+[GIN] 2023/02/02 - 17:05:33 | 200 |     888.763µs |       127.0.0.1 | GET      "/api/markdown"
+[GIN] 2023/02/02 - 17:10:55 | 200 |  329.009184ms |       127.0.0.1 | GET      "/api/login?email=757909414@qq.com"
+[GIN] 2023/02/02 - 17:10:59 | 204 |      10.769µs |       127.0.0.1 | OPTIONS  "/api/login"
+[GIN] 2023/02/02 - 17:10:59 | 200 |  211.935991ms |       127.0.0.1 | POST     "/api/login"
