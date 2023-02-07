@@ -12,9 +12,9 @@ import (
 )
 
 type Tag_Class struct {
-	Id     int    `json:"id"`
-	Name   string `json:"name"`
-	Cerate string `json:"cerate"`
+	Id         int    `json:"id"`
+	Name       string `json:"name"`
+	CreateTime string `json:"createTime"`
 }
 
 //get
@@ -22,7 +22,7 @@ func get(sql string) ([]Tag_Class, error) {
 	var list = make([]Tag_Class, 0, 100)
 
 	//sql := "select id,name,cerate from Tag;"
-	rows, err := db.BlogMysqlDB.Query(sql)
+	rows, err := db.MysqlDB.Query(sql)
 	//fmt.Println(rows)
 	if err != nil {
 		logger.SetLogger(1, sql+": Mysql查询出错")
@@ -32,7 +32,7 @@ func get(sql string) ([]Tag_Class, error) {
 
 	for rows.Next() {
 		var data Tag_Class
-		err = rows.Scan(&data.Id, &data.Name, &data.Cerate)
+		err = rows.Scan(&data.Id, &data.Name, &data.CreateTime)
 		if err != nil {
 			logger.SetLogger(1, sql+"绑定数据失败")
 			log.Println(sql + "绑定数据失败")
@@ -58,10 +58,9 @@ func add(ctx *gin.Context, sql string) (int64, error) {
 		})
 		return -1, err
 	}
-	//fmt.Printf(name.Name)
 
 	//sql := "insert into Tag(name) values(?);"
-	res, err := db.BlogMysqlDB.Exec(sql, name.Name)
+	res, err := db.MysqlDB.Exec(sql, name.Name)
 	if err != nil {
 		logger.SetLogger(1, sql+"绑定数据失败")
 		log.Println(sql + "绑定数据失败")
@@ -93,7 +92,7 @@ func del(ctx *gin.Context, sql string) error {
 	}
 	//fmt.Printf(name.Name)
 
-	_, err := db.BlogMysqlDB.Exec(sql, id.Id)
+	_, err := db.MysqlDB.Exec(sql, id.Id)
 	if err != nil {
 		logger.SetLogger(1, sql+"绑定数据失败")
 		log.Println(sql + "绑定数据失败")
@@ -108,12 +107,12 @@ func GetTag(ctx *gin.Context) {
 
 	//var list = make([]Tag, 0, 100)
 
-	sql := "select id,name,cerate from Tag;"
+	sql := "select id,name,createTime from blog_Tag;"
 
 	list, err := get(sql)
 	if err != nil {
 		log.Println(sql + "获取数据失败")
-		return
+		//return
 	}
 
 	ctx.JSON(http.StatusOK, gin.H{
@@ -124,7 +123,7 @@ func GetTag(ctx *gin.Context) {
 
 func AddTag(ctx *gin.Context) {
 
-	sql := "insert into Tag(name) values(?);"
+	sql := "insert into blog_Tag(name) values(?);"
 
 	id, err := add(ctx, sql)
 	if err != nil {
@@ -141,7 +140,7 @@ func AddTag(ctx *gin.Context) {
 
 func DelTag(ctx *gin.Context) {
 
-	sql := "delete from Tag where id = ?;"
+	sql := "delete from blog_Tag where id = ?;"
 
 	err := del(ctx, sql)
 	if err != nil {
@@ -159,11 +158,11 @@ func DelTag(ctx *gin.Context) {
 
 func GetClass(ctx *gin.Context) {
 
-	sql := "select id,name,cerate from Class;"
+	sql := "select id,name,createTime from blog_Class;"
 	list, err := get(sql)
 	if err != nil {
 		log.Println(sql + "获取数据失败")
-		return
+		//return
 	}
 	ctx.JSON(http.StatusOK, gin.H{
 		"code": 200,
@@ -173,7 +172,7 @@ func GetClass(ctx *gin.Context) {
 
 func AddClass(ctx *gin.Context) {
 
-	sql := "insert into Class(name) values(?);"
+	sql := "insert into blog_Class(name) values(?);"
 	id, err := add(ctx, sql)
 	if err != nil {
 		log.Println(sql + "添加数据失败")
@@ -189,7 +188,7 @@ func AddClass(ctx *gin.Context) {
 
 func DelClass(ctx *gin.Context) {
 
-	sql := "delete from Class where id = ?;"
+	sql := "delete from blog_Class where id = ?;"
 	err := del(ctx, sql)
 	if err != nil {
 		log.Println(sql + "删除数据失败")
@@ -205,23 +204,23 @@ func DelClass(ctx *gin.Context) {
 //Markdown--------------------------------------------
 
 type Markdown struct {
-	Limit  int    `json:"limit"`
-	Page   int    `json:"page"`
-	Id     int    `json:"id"`
-	Uid    string `json:"uid"`
-	Title  string `json:"title"`
-	Class  string `json:"class"`
-	Tag    string `json:"tag"`
-	Text   string `json:"text"`
-	Cerate string `json:"cerate"`
+	// Limit  int    `json:"limit"`
+	// Page   int    `json:"page"`
+	Id         int    `json:"id"`
+	Uid        string `json:"uid"`
+	Title      string `json:"title"`
+	Class      string `json:"class"`
+	Tag        string `json:"tag"`
+	Context    string `json:"context"`
+	CreateTime string `json:"createTime"`
 }
 
 func GetMarkdown(ctx *gin.Context) {
 
 	var list []Markdown
 
-	sql := "select id,uid,title,class,tag,text,cerate from Blog;"
-	rows, err := db.BlogMysqlDB.Query(sql)
+	sql := "select id,uid,title,class,tag,context,createTime from blog_Blog;"
+	rows, err := db.MysqlDB.Query(sql)
 	//fmt.Println(rows)
 	if err != nil {
 		logger.SetLogger(1, sql+": Mysql查询出错")
@@ -231,7 +230,7 @@ func GetMarkdown(ctx *gin.Context) {
 
 	for rows.Next() {
 		var data Markdown
-		err = rows.Scan(&data.Id, &data.Uid, &data.Title, &data.Class, &data.Tag, &data.Text, &data.Cerate)
+		err = rows.Scan(&data.Id, &data.Uid, &data.Title, &data.Class, &data.Tag, &data.Context, &data.CreateTime)
 		if err != nil {
 			logger.SetLogger(1, sql+"绑定数据失败")
 			log.Println(sql + "绑定数据失败")
@@ -262,8 +261,8 @@ func AddMarkdown(ctx *gin.Context) {
 	var data = []byte(markdown.Title)
 	uid := fmt.Sprintf("%x", md5.Sum(data))
 	fmt.Println(uid, markdown)
-	sql := "insert into Blog(uid,title,class,tag,text) values(?,?,?,?,?);"
-	_, err := db.BlogMysqlDB.Exec(sql, uid, markdown.Title, markdown.Class, markdown.Tag, markdown.Text)
+	sql := "insert into blog_Blog(uid,title,class,tag,context) values(?,?,?,?,?);"
+	_, err := db.MysqlDB.Exec(sql, uid, markdown.Title, markdown.Class, markdown.Tag, markdown.Context)
 	if err != nil {
 		logger.SetLogger(1, sql+"数据添加失败")
 		log.Println(sql + "数据添加失败")
@@ -292,8 +291,8 @@ func DelMarkdown(ctx *gin.Context) {
 		})
 	}
 	//fmt.Printf(name.Name)
-	sql := "delete from Blog where uid = ?;"
-	_, err := db.BlogMysqlDB.Exec(sql, markdown.Uid)
+	sql := "delete from blog_Blog where uid = ?;"
+	_, err := db.MysqlDB.Exec(sql, markdown.Uid)
 	if err != nil {
 		logger.SetLogger(1, sql+"数据删除失败")
 		log.Println(sql + "数据删除失败")

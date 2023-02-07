@@ -1,6 +1,7 @@
 package service
 
 import (
+	"fmt"
 	"indexServer/db"
 	"indexServer/logger"
 	"indexServer/middleware"
@@ -149,13 +150,17 @@ func Login(ctx *gin.Context) {
 	if user.Verify != "" && !isUser {
 		//判断验证码
 		verify := isEmailVerify(user.Email)
+
 		if verify == user.Verify {
+
 			//添加用户
 			isAdd := addUser(user)
 			token := ""
 			if isAdd {
 				token, _ = middleware.SetToken(user.Email)
 			}
+			fmt.Println("----", isUser, verify, user.Verify, isAdd, token)
+
 			ctx.JSON(http.StatusOK, gin.H{
 				"code":    200,
 				"email":   user.Email,

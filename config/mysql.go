@@ -1,10 +1,13 @@
 package config
 
 var MysqlName = "root"
-var MysqlPass = "757909414"
-var MysqlDB = "indexServer"
-var MysqlPort = "3307"
-var MysqlIP = "127.0.0.1"
+var MysqlPass = "admin7579"
+var MysqlDB = "Server"
+var MysqlPort = "3305"
+
+//var MysqlIP = "127.0.0.1"
+
+var MysqlIP = "104.168.198.147"
 
 // type MysqlConfig struct {
 // 	MysqlName string

@@ -67,16 +67,16 @@ func GetTokenAuth() gin.HandlerFunc {
 		// 	//c.Abort()
 		// 	return
 		// }
-		if url == "/api/login" {
+		if url == "/blog/login" {
 			return
 		}
-		if url == "/api/tag" {
+		if url == "/blog/tag" {
 			return
 		}
-		if url == "/api/class" {
+		if url == "/blog/class" {
 			return
 		}
-		if url == "/api/markdown" {
+		if url == "/blog/markdown" {
 			return
 		}
 		if token == "" {

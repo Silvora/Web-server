@@ -26,30 +26,29 @@ func InitRouters() *gin.Engine {
 
 	api := router.Group("/api")
 	{
-		// api.GET("/status", func(ctx *gin.Context) {
-		// 	str, _ := middleware.SetToken("757909414@qq.com")
-		// 	ctx.JSON(http.StatusOK, gin.H{
-		// 		"message": "Hello www.topgoer.com!",
-		// 		"token":   str,
-		// 	})
-
-		// })
+		//登录注册
 		api.GET("/login", service.Status)
 		api.POST("/login", service.Login)
 		api.POST("/sendEmail", service.UserToEmail)
+	}
 
-		api.GET("/tag", service.GetTag)
-		api.POST("/tag", service.AddTag)
-		api.DELETE("/tag", service.DelTag)
+	//blog
+	blog := router.Group("/blog")
+	{
 
-		api.GET("/class", service.GetClass)
-		api.POST("/class", service.AddClass)
-		api.DELETE("/class", service.DelClass)
+		//blog
+		blog.GET("/tag", service.GetTag)
+		blog.POST("/tag", service.AddTag)
+		blog.DELETE("/tag", service.DelTag)
 
-		api.GET("/markdown", service.GetMarkdown)
-		api.POST("/markdown", service.AddMarkdown)
-		api.PUT("/markdown", service.PutMarkdown)
-		api.DELETE("/markdown", service.DelMarkdown)
+		blog.GET("/class", service.GetClass)
+		blog.POST("/class", service.AddClass)
+		blog.DELETE("/class", service.DelClass)
+
+		blog.GET("/markdown", service.GetMarkdown)
+		blog.POST("/markdown", service.AddMarkdown)
+		blog.PUT("/markdown", service.PutMarkdown)
+		blog.DELETE("/markdown", service.DelMarkdown)
 	}
 
 	return router
