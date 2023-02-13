@@ -46,9 +46,17 @@ func InitRouters() *gin.Engine {
 		blog.DELETE("/class", service.DelClass)
 
 		blog.GET("/markdown", service.GetMarkdown)
+		blog.GET("/markdownItem/:uid", service.GetMarkdownItem)
 		blog.POST("/markdown", service.AddMarkdown)
 		blog.PUT("/markdown", service.PutMarkdown)
 		blog.DELETE("/markdown", service.DelMarkdown)
+
+		blog.GET("/read", service.GetReadTotal)
+		blog.POST("/read", service.AddReadTotal)
+
+		blog.GET("/search", service.GetSearch)
+		blog.GET("/notice", service.GetNotice)
+		blog.GET("/total", service.GetClassTotal)
 	}
 
 	return router

@@ -27,12 +27,12 @@ func InitRedis() {
 				log.Println("redis连接失败")
 				return nil, err
 			}
-			// if _, err := Conn.Do("AUTH", 757909414); err != nil {
-			// 	logger.SetLogger(1, "redis连接密码失败")
-			// 	log.Println("redis连接密码失败")
-			// 	Conn.Close()
-			// 	return nil, err
-			// }
+			if _, err := Conn.Do("AUTH", 757909414); err != nil {
+				logger.SetLogger(1, "redis连接密码失败")
+				log.Println("redis连接密码失败")
+				Conn.Close()
+				return nil, err
+			}
 
 			logger.SetLogger(0, "redis连接成功")
 			log.Println("redis连接成功")

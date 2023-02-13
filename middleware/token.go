@@ -3,6 +3,7 @@ package middleware
 import (
 	"fmt"
 	"net/http"
+	"regexp"
 	"time"
 
 	"github.com/dgrijalva/jwt-go"
@@ -58,6 +59,7 @@ func GetTokenAuth() gin.HandlerFunc {
 		token := c.Request.Header.Get("ZJS-7579-Admin-Token")
 		//Get("Authorization")
 		url := c.Request.URL.Path
+		fmt.Println(url)
 		//fmt.Println(token)
 		// var imgUrl = regexp.MustCompile(`/images`)
 		// var videoUrl = regexp.MustCompile(`/videos`)
@@ -67,6 +69,14 @@ func GetTokenAuth() gin.HandlerFunc {
 		// 	//c.Abort()
 		// 	return
 		// }
+		var urlBlog = regexp.MustCompile(`/blog`)
+		if url == "/api/login" || urlBlog.MatchString(url) {
+			//c.Abort()
+			return
+		}
+		if url == "/blog/markdownItem/:uid" {
+			return
+		}
 		if url == "/blog/login" {
 			return
 		}

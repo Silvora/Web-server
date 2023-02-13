@@ -7,7 +7,9 @@ import (
 	"indexServer/logger"
 	"log"
 	"net/http"
+	"time"
 
+	"github.com/garyburd/redigo/redis"
 	"github.com/gin-gonic/gin"
 )
 
@@ -214,12 +216,44 @@ type Markdown struct {
 	Context    string `json:"context"`
 	CreateTime string `json:"createTime"`
 }
+type MarkdownList struct {
+	// Limit  int    `json:"limit"`
+	// Page   int    `json:"page"`
+	Id    int    `json:"id"`
+	Uid   string `json:"uid"`
+	Title string `json:"title"`
+	Class string `json:"class"`
+	// Tag        string `json:"tag"`
+	// Context    string `json:"context"`
+	CreateTime string `json:"createTime"`
+}
+
+type MarkdownItem struct {
+	Title   string `json:"title"`
+	Context string `json:"context"`
+}
+
+func GetMarkdownItem(ctx *gin.Context) {
+	var item MarkdownItem
+	uid := ctx.Param("uid")
+	sql := "select title,context from blog_Blog where uid = ?;"
+	err := db.MysqlDB.QueryRow(sql, uid).Scan(&item.Title, &item.Context)
+	if err != nil {
+		item.Context = "暂无数据"
+	}
+	ctx.JSON(http.StatusOK, gin.H{
+		"code": 200,
+		"uid":  uid,
+		"data": item,
+	})
+
+}
 
 func GetMarkdown(ctx *gin.Context) {
 
-	var list []Markdown
+	var list []MarkdownList
 
-	sql := "select id,uid,title,class,tag,context,createTime from blog_Blog;"
+	sql := "select id,uid,title,class,createTime from blog_Blog;"
 	rows, err := db.MysqlDB.Query(sql)
 	//fmt.Println(rows)
 	if err != nil {
@@ -229,8 +263,8 @@ func GetMarkdown(ctx *gin.Context) {
 	}
 
 	for rows.Next() {
-		var data Markdown
-		err = rows.Scan(&data.Id, &data.Uid, &data.Title, &data.Class, &data.Tag, &data.Context, &data.CreateTime)
+		var data MarkdownList
+		err = rows.Scan(&data.Id, &data.Uid, &data.Title, &data.Class, &data.CreateTime)
 		if err != nil {
 			logger.SetLogger(1, sql+"绑定数据失败")
 			log.Println(sql + "绑定数据失败")
@@ -258,7 +292,8 @@ func AddMarkdown(ctx *gin.Context) {
 		})
 	}
 	//fmt.Printf(name.Name)
-	var data = []byte(markdown.Title)
+	createT := time.Now().Format("2006-01-02 15:04:05")
+	var data = []byte(markdown.Title + createT)
 	uid := fmt.Sprintf("%x", md5.Sum(data))
 	fmt.Println(uid, markdown)
 	sql := "insert into blog_Blog(uid,title,class,tag,context) values(?,?,?,?,?);"
@@ -302,5 +337,134 @@ func DelMarkdown(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, gin.H{
 		"code": 200,
 		"msg":  "文章删除成功",
+	})
+}
+
+func GetSearch(ctx *gin.Context) {
+
+	var list []MarkdownList
+
+	val := ctx.DefaultQuery("s", "")
+
+	sql := "select id,uid,title,class,createTime from blog_Blog where title like ? or class like ?;"
+
+	rows, err := db.MysqlDB.Query(sql, `%`+val+`%`, `%`+val+`%`)
+	//fmt.Println(rows)
+	if err != nil {
+		logger.SetLogger(1, sql+": Mysql查询出错")
+		log.Println(sql + ":Mysql查询出错")
+		return
+	}
+
+	for rows.Next() {
+		var data MarkdownList
+		err = rows.Scan(&data.Id, &data.Uid, &data.Title, &data.Class, &data.CreateTime)
+		if err != nil {
+			logger.SetLogger(1, sql+"绑定数据失败")
+			log.Println(sql + "绑定数据失败")
+			return
+		}
+
+		list = append(list, data)
+	}
+
+	ctx.JSON(http.StatusOK, gin.H{
+		"code": 200,
+		"data": list,
+	})
+
+}
+
+type Notice struct {
+	Id         int    `json:"id"`
+	Type       string `json:"type"`
+	Context    string `json:"context"`
+	CreateTime string `json:"createTime"`
+}
+
+func GetNotice(ctx *gin.Context) {
+
+	var notice Notice
+
+	sql := "select * from blog_Notice order by id desc limit 1;"
+
+	err := db.MysqlDB.QueryRow(sql).Scan(&notice.Id, &notice.Type, &notice.Context, &notice.CreateTime)
+	if err != nil {
+		logger.SetLogger(1, sql+"数据获取失败")
+		log.Println(sql + "数据获取失败")
+		return
+		//item.Context = "暂无数据"
+	}
+	ctx.JSON(http.StatusOK, gin.H{
+		"code": 200,
+		"data": notice,
+	})
+}
+
+func AddReadTotal(ctx *gin.Context) {
+
+	conn := db.Pool.Get()
+	defer conn.Close()
+	_, err := conn.Do("INCR", "readTotal")
+	if err != nil {
+		logger.SetLogger(1, "Redis插入出错了")
+		log.Println("插入出错了", err)
+		return
+	}
+	//log.Println("Redis插入成功")
+	//middleware.SetLogger(0, "Redis插入成功")
+	//return true
+}
+
+func GetReadTotal(ctx *gin.Context) {
+	conn := db.Pool.Get()
+	defer conn.Close()
+
+	value, err := redis.String(conn.Do("GET", "readTotal"))
+	if err != nil {
+		logger.SetLogger(1, "Redis插入出错了")
+		log.Println("插入出错了", err)
+		return
+	}
+	ctx.JSON(http.StatusOK, gin.H{
+		"code":      200,
+		"readTotal": value,
+	})
+}
+
+type Total struct {
+	Class string `json:"class"`
+	Total string `json:"total"`
+}
+
+func GetClassTotal(ctx *gin.Context) {
+
+	var list []Total
+
+	sql := "select class,count(*) as total from blog_Blog group by class;"
+
+	rows, err := db.MysqlDB.Query(sql)
+	if err != nil {
+		logger.SetLogger(1, sql+"数据获取失败")
+		log.Println(sql + "数据获取失败")
+		return
+		//item.Context = "暂无数据"
+	}
+
+	for rows.Next() {
+		var total Total
+		err = rows.Scan(&total.Class, &total.Total)
+		if err != nil {
+			logger.SetLogger(1, sql+"绑定数据失败")
+			log.Println(sql + "绑定数据失败")
+			return
+		}
+
+		list = append(list, total)
+	}
+
+	ctx.JSON(http.StatusOK, gin.H{
+		"code": 200,
+		"data": list,
 	})
 }
